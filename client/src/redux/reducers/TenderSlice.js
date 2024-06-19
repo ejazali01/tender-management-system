@@ -14,13 +14,39 @@ export const createTender = createAsyncThunk(
 );
 
 export const getAllTender = createAsyncThunk(
-  'tender/getAll', // More descriptive action type
+  'tender/getAllTender',
   async (_, { rejectWithValue }) => {
     try {
       const response = await API_URL.get('/tender/');
       return response.data;
     } catch (error) {
+      console.error('Error fetching tenders:', error.response, error.message);
       return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const updateTenderEndTime = createAsyncThunk(
+  "tender/updateEndTime",
+  async ({ tenderId, newEndTime }, { rejectWithValue }) => {
+    try {
+      const updatedResponse = await API_URL.put(`/tender/buffer-time/${tenderId}`, { endTime: newEndTime });
+      return { ...updatedResponse.data };
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+
+export const deleteMultipleTenders = createAsyncThunk(
+  'tender/deleteMultipleTenders',
+  async (tenderIds, { rejectWithValue }) => {
+    try {
+      await API_URL.delete('/tender/delete-multi', { data: { ids: tenderIds } });
+      return tenderIds;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
     }
   }
 );
@@ -60,6 +86,17 @@ const TenderSlice = createSlice({
       .addCase(getAllTender.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+    
+      .addCase(updateTenderEndTime.fulfilled, (state, action) => {
+        const index = state.tender.findIndex((tender) => tender._id === action.payload._id);
+        if (index !== -1) {
+          state.tender[index] = action.payload;
+        }
+      })
+      
+      .addCase(deleteMultipleTenders.fulfilled, (state, action) => {
+        state.tender = state.tender.filter(tender => !action.payload.includes(tender._id));
       });
   },
 });

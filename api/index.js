@@ -35,11 +35,6 @@ app.use("/api/user", userRoute);
 app.use("/api/tender", tenderRoute);
 app.use("/api/bid", bidRoute);
 
-// //rest api
-app.use("/", (req, res) => {
-  res.send("Welcome to travel and tourism app");
-});
-
 //static files
 app.use(express.static(path.join(__dirname, "/client/dist")));
 

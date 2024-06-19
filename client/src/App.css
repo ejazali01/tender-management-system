@@ -31,3 +31,30 @@
       stroke-dashoffset: -124;
     }
   }
+
+/* Scrollbar Styles */
+.custom-scrollbar {
+  /* Width of the scrollbar */
+  scrollbar-width: thin; /* "auto" hides scrollbar until hovered */
+  scrollbar-color: #888 #f1f1f1; /* color of the handle and track */
+
+/* Scrollbar Styles */
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; /* color of the scrollbar handle */
+  border-radius: 4px; /* roundness of the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* color of the scrollbar handle on hover */
+}
+
+}

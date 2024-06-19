@@ -6,7 +6,7 @@ import FooterComp from "../components/FooterComp";
 
 const Layout = () => {
   const location = useLocation();
-  const hideNavbarRoutes = ["/login", "/signup"];
+  const hideNavbarRoutes = ["/login", "/signup",];
   const hidenFooterRoutes = ["/login", "/signup", "/profile/dashboard"];
   return (
     <div className="w-full">

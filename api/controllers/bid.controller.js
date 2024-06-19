@@ -3,7 +3,7 @@ import Tender from "../models/tender.model.js";
 
 //create new bid
 export const addBids = async (req, res) => {
-    const { tenderId, companyName, bidCost } = req.body;
+    const { tenderId, companyName, bidCost, message } = req.body;
     try {
         const tender = await Tender.findById(tenderId);
 
@@ -23,6 +23,7 @@ export const addBids = async (req, res) => {
             tenderId,
             companyName,
             bidCost,
+            message,
             isLastFiveMinutes
         });
 

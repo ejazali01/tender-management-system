@@ -6,9 +6,9 @@ export const TenderSchema = Yup.object().shape({
     description: Yup.string().required("Tender Description is required"),
     startTime: Yup.date().required("Start Time is required"),
     endTime: Yup.date().required("End Time is required"),
-    bufferTime: Yup.number()
-      .required("Buffer Time is required")
-      .positive("Buffer Time must be positive"),
+    tenderBaseAmount: Yup.number()
+    .required("Tender Base Amount is required")
+    .positive("Tender Base Amount must be positive"),
   });
 
   // Validation Schema

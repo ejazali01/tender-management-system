@@ -8,8 +8,9 @@ const FooterComp = () => {
           <div className="col-span-6 space-y-4">
             <h5 className="text-xl font-bold text-[#094067]">Tender App</h5>
             <p className="text-[#5F6C7B] tracking-wide leading-relaxed pr-8">
-              Tender App is a site for searching for tourist destinations,
-              including departure routes and booking nearby accommodation.
+              Streamline tender and bidding processes with our app, featuring
+              real-time updates, bid comparisons, and secure document handling
+              for optimized procurement.
             </p>
           </div>
           <div className="col-span-6 sm:col-span-2">
@@ -17,36 +18,13 @@ const FooterComp = () => {
               PAGE
             </h6>
             <ul className="space-y-2">
+              
               <li>
                 <a
-                  href="#"
+                  href="/my/bids"
                   className="text-[#5F6C7B] hover:text-[#33393f] transition duration-300"
                 >
-                  Tourist Destinations
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-[#5F6C7B] hover:text-[#33393f] transition duration-300"
-                >
-                  Booking accommodation
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-[#5F6C7B] hover:text-[#33393f] transition duration-300"
-                >
-                  Nearest Destinations
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-[#5F6C7B] hover:text-[#33393f] transition duration-300"
-                >
-                  My profile
+                 Bids
                 </a>
               </li>
             </ul>

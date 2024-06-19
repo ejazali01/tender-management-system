@@ -8,6 +8,7 @@ const BidSchema = new mongoose.Schema({
   },
   companyName: { type: String, required: true },
   bidTime: { type: Date, default: Date.now },
+  message:{type:String},
   bidCost: { type: Number, required: true },
   isLastFiveMinutes: { type: Boolean, default: false },
 });

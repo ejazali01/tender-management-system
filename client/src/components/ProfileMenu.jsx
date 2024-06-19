@@ -18,28 +18,17 @@ export const ProfileMenu = () => {
 
   return (
     <>
-      {currentUser !== null && (
+      {currentUser && currentUser !== null ? (
         <Menu>
           <MenuHandler>
-            {currentUser && currentUser ? (
-              <Avatar
-                variant="circular"
-                alt={currentUser.fullName}
-                className="cursor-pointer object-cover"
-                src={currentUser.avatar || defaultProfileImg}
-              />
-            ) : (
-              <Link
-                to="/signin"
-                className="middle none rounded-lg bg-[#3da9fc] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                data-ripple-light="true"
-              >
-                Login
-              </Link>
-            )}
+            <Avatar
+              variant="circular"
+              alt={currentUser.fullName}
+              className="cursor-pointer object-cover"
+              src={currentUser.avatar || defaultProfileImg}
+            />
           </MenuHandler>
           <MenuList>
-          <Link to="/profile">
             <MenuItem className="flex items-center gap-2">
               <svg
                 width="16"
@@ -57,38 +46,38 @@ export const ProfileMenu = () => {
               </svg>
 
               <Typography variant="small" className="font-medium">
-                My Profile
+                <Link to="/my/profile">My Profile</Link>
               </Typography>
             </MenuItem>
-            </Link>
 
-            <MenuItem className="flex items-center gap-2">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M2 0C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V12C0 12.5304 0.210714 13.0391 0.585786 13.4142C0.960859 13.7893 1.46957 14 2 14H12C12.5304 14 13.0391 13.7893 13.4142 13.4142C13.7893 13.0391 14 12.5304 14 12V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0H2ZM2 2H12V9H10L9 11H5L4 9H2V2Z"
-                  fill="#90A4AE"
-                />
-              </svg>
-
-              <Typography variant="small" className="font-medium">
-                <Link
-                  to={`/my/${
-                    currentUser.user_role === 1 ? "dashboard" : "profile"
-                  }`}
+            {currentUser?.user_role === 1 && (
+              <MenuItem className="flex items-center gap-2">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Dashboard
-                </Link>
-              </Typography>
-            </MenuItem>
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M2 0C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V12C0 12.5304 0.210714 13.0391 0.585786 13.4142C0.960859 13.7893 1.46957 14 2 14H12C12.5304 14 13.0391 13.7893 13.4142 13.4142C13.7893 13.0391 14 12.5304 14 12V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0H2ZM2 2H12V9H10L9 11H5L4 9H2V2Z"
+                    fill="#90A4AE"
+                  />
+                </svg>
 
+                <Typography variant="small" className="font-medium">
+                  <Link
+                    to={`/my/${
+                      currentUser?.user_role === 1 ? "dashboard" : "profile"
+                    }`}
+                  >
+                    Dashboard
+                  </Link>
+                </Typography>
+              </MenuItem>
+            )}
             <hr className="my-2 border-blue-gray-50" />
 
             <MenuItem
@@ -118,6 +107,14 @@ export const ProfileMenu = () => {
             </MenuItem>
           </MenuList>
         </Menu>
+      ) : (
+        <Link
+          to="/signin"
+          className="middle none rounded-lg bg-[#3da9fc] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-light="true"
+        >
+          Signin
+        </Link>
       )}
     </>
   );

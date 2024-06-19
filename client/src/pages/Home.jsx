@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -8,14 +9,16 @@ const Home = () => {
           <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
             ROOF PARTY POLAROID
           </h2>
-          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-            Master Cleanse Reliac Heirloom
+          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-wrap max-w-[800px] m-auto text-gray-900">
+            Optimize Your Procurement with Our Comprehensive Tender and Bidding
+            Platform
           </h1>
           <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-            Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-            gentrify, subway tile poke farm-to-table. Franzen you probably
-            haven't heard of them man bun deep jianbing selfies heirloom prism
-            food truck ugh squid celiac humblebrag.
+            Streamline your tender and bidding process with our powerful Tender
+            Management App. Easily manage tenders, submit bids, and track
+            application statuses in one place. Featuring real-time updates, bid
+            comparisons, and secure document handling, our app simplifies
+            procurement and enhances efficiency for businesses.
           </p>
         </div>
         <div className="flex flex-wrap">
@@ -112,9 +115,11 @@ const Home = () => {
             </a>
           </div>
         </div>
-        <button className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-          Button
-        </button>
+        <Link to="/my/bids">
+          <button className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            Button
+          </button>
+        </Link>
       </div>
     </section>
   );

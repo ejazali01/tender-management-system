@@ -42,7 +42,7 @@ const Header = () => {
           </div>
           <div>
             <ul>
-              <Link to="/bids" className="hover:underline underline-offset-4 focus:text-blue-400">
+              <Link to="/my/bids" className="hover:underline underline-offset-4 focus:text-blue-400">
                 <li>Bids</li>
               </Link>
             </ul>

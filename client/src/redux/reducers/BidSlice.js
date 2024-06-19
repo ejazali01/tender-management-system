@@ -14,12 +14,15 @@ export const addBid = createAsyncThunk(
 );
 
 export const getAllBids = createAsyncThunk(
-  "bid/", // More descriptive action type
+  "bid/getAllBids",
   async (tenderId, { rejectWithValue }) => {
+    // Ensure tenderId is accepted here
     try {
+      console.log(tenderId);
       const response = await API_URL.get(`/bid/${tenderId}`);
       return response.data;
     } catch (error) {
+      console.error("Error fetching tenders:", error.response, error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -55,7 +58,7 @@ const BidSlice = createSlice({
       })
       .addCase(getAllBids.fulfilled, (state, action) => {
         state.loading = false;
-        state.bid = action.payload.sort((a, b) =>  b.bidCost - a.bidCost);
+        state.bid = action.payload.sort((a, b) => b.bidCost - a.bidCost);
       })
       .addCase(getAllBids.rejected, (state, action) => {
         state.loading = false;
