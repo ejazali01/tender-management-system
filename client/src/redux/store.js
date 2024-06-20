@@ -1,4 +1,5 @@
 import authReducer from "./reducers/AuthSlice";
+import useReducer from "./reducers/UserSlice";
 import tenderReducer from "./reducers/TenderSlice";
 import bidReducer from "./reducers/BidSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -7,6 +8,7 @@ import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  user: useReducer,
   tender: tenderReducer,
   bids: bidReducer,
 });

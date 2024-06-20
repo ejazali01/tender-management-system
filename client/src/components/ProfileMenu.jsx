@@ -7,12 +7,13 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import defaultProfileImg from "../assets/images/profile.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/reducers/AuthSlice";
 import toast from "react-hot-toast";
 
 export const ProfileMenu = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.auth?.user?.user);
 
@@ -84,6 +85,7 @@ export const ProfileMenu = () => {
               onClick={() => {
                 dispatch(logout());
                 toast.success("logout success");
+                navigate('/signin')
               }}
               className="flex items-center gap-2 "
             >

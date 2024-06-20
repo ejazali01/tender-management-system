@@ -15,6 +15,7 @@
     "@material-tailwind/react": "^2.1.9",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
+    "firebase": "^10.12.2",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",

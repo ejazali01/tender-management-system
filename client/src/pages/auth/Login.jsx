@@ -9,16 +9,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, user } = useSelector((state) => state.auth);
+  const { loading, error, user } = useSelector((state) => state?.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await dispatch(login({ email, password })).unwrap();
-      if (!error) {
-        navigate("/");
-        toast.success("login success");
-      }
+      navigate("/");
+      toast.success("login success");
     } catch (error) {
       console.log(error.message);
     }
@@ -29,12 +27,19 @@ const Login = () => {
       navigate("/");
     }
     navigate("/signin");
-
   }, [user]);
 
   return (
     <div className="max-w-[300px] h-screen m-auto">
       <h2 className="py-3 text-center">Login</h2>
+      <h2 className="py-3 text-center flex gap-2 justify-center text-sm items-center">
+        Don't have an account ?
+        <span>
+          <Link to="/signup" className="text-blue underline underline-offset-4">
+            SignUp
+          </Link>
+        </span>
+      </h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="email"

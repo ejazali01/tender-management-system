@@ -23,7 +23,8 @@ export const login = createAsyncThunk('auth/login', async (userData, { rejectWit
 
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await API_URL.get('/auth/logout');
+   const response =  await API_URL.get('/auth/logout');
+   return response.data
   } catch (error) {
     return rejectWithValue(error.response.data || error.message);
   }
@@ -52,6 +53,7 @@ export const resetPassword = createAsyncThunk('auth/resetPassword', async (data,
     return rejectWithValue(error.response.data || error.message);
   }
 });
+
 
 const authSlice = createSlice({
   name: 'auth',

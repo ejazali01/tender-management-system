@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Tender from "../../components/Tender";
 import AllTender from "../../components/AllTender";
-import AdminProfile from "../../components/AdminProfile";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 import Empty from "../../components/Empty";
+import Profile from "../../components/Profile";
 
 const DashboardLayout = () => {
   const {
@@ -194,7 +194,7 @@ const DashboardLayout = () => {
                     ) : isActive === 2 ? (
                       <AllTender />
                     ) : isActive === 3 ? (
-                      <AdminProfile />
+                      <Profile />
                     ) : (
                       <Empty icon={<FaNotEqual />} message="Page Not Found !" />
                     )}

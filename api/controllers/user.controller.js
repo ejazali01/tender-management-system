@@ -1,5 +1,5 @@
-import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
+import User from "../models/user.model.js"
 
 //update uset details
 export const updateUser = async (req, res) => {

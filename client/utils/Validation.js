@@ -18,3 +18,10 @@ export const BidSchema = Yup.object().shape({
     .required("Bid Cost is required")
     .positive("Bid Cost must be positive"),
 });
+
+export const profileSchema = Yup.object().shape({
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  address: Yup.string().max(200, "Address must be less than 200 characters"),
+  phone: Yup.string().required("Phone is required"),
+});

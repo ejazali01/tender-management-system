@@ -40,7 +40,7 @@ const Header = () => {
               </svg>
             </button>
           </div>
-          <div>
+          <div className="hidden lg:flex">
             <ul>
               <Link to="/my/bids" className="hover:underline underline-offset-4 focus:text-blue-400">
                 <li>Bids</li>

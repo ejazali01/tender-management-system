@@ -28,4 +28,6 @@ router.post("/verifyOtp", verifyOtp);
 // reset password
 router.post("/resetPassword", resetPassword);
 
+
+
 export default router;

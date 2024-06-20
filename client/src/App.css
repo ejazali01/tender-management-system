@@ -58,3 +58,14 @@
 }
 
 }
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #2d3748; /* match your header background color */
+}
+
+.sticky {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

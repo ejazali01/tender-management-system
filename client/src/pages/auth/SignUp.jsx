@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../redux/reducers/AuthSlice";
 import toast from "react-hot-toast";
 
@@ -39,6 +39,13 @@ const Signup = () => {
   return (
     <div className="max-w-[300px] h-screen  m-auto">
       <h2 className="py-3 text-center">Signup</h2>
+      <h2 className="py-3 text-center flex gap-2 justify-center text-sm items-center">Already have an account ? 
+        <span>
+          <Link to='/signin' className="text-blue underline underline-offset-4">
+          Signin
+          </Link>
+        </span>
+      </h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
