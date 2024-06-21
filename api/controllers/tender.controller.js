@@ -27,10 +27,58 @@ export const createTender = async (req, res) => {
 };
 
 //get all tender
+// Utility function for pagination
+const paginateResults = (page, limit) => {
+  const offset = (page - 1) * limit;
+  return { offset, limit };
+};
+
+// Modified allTender endpoint with search, sort, filter, and pagination
 export const allTender = async (req, res) => {
+  const { 
+    search = "", 
+    sortField = "createdAt", 
+    sortOrder = "desc", 
+    page = 1, 
+    limit = 10, 
+    filterField, 
+    filterValue 
+  } = req.query;
+
   try {
-    const tenders = await Tender.find().sort({ createdAt: -1 });
-    res.json(tenders);
+    const query = {};
+
+    // Add search functionality
+    if (search) {
+      query.name = { $regex: search, $options: "i" }; // Case-insensitive search
+    }
+
+    // Add filter functionality
+    if (filterField && filterValue) {
+      query[filterField] = filterValue;
+    }
+
+    // Pagination calculation
+    const { offset, limit: finalLimit } = paginateResults(Number(page), Number(limit));
+
+    // Sorting
+    const sort = { [sortField]: sortOrder === "asc" ? 1 : -1 };
+
+    // Fetch tenders with applied query, sort, and pagination
+    const tenders = await Tender.find(query)
+      .sort(sort)
+      .skip(offset)
+      .limit(finalLimit);
+
+    // Get the total count for pagination purposes
+    const totalCount = await Tender.countDocuments(query);
+
+    res.json({
+      tenders,
+      totalCount,
+      totalPages: Math.ceil(totalCount / finalLimit),
+      currentPage: Number(page),
+    });
   } catch (err) {
     res.status(500).send("Server Error");
   }

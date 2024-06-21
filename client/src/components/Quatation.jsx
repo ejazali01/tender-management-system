@@ -11,6 +11,7 @@ import { BidSchema } from "../../utils/Validation";
 import { addBid } from "../redux/reducers/BidSlice";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
+import { getTenderById } from "../redux/reducers/TenderSlice";
 
 const Quatation = ({ open, handleClose, tenderId, setSelectedTenderId }) => {
   const { error, loading } = useSelector((state) => state?.bids);
@@ -21,7 +22,7 @@ const Quatation = ({ open, handleClose, tenderId, setSelectedTenderId }) => {
 
   const fetchBids = async () => {
     try {
-      const bidsData = await dispatch(getAllBids(tenderId)).unwrap();
+      const bidsData = await dispatch(getTenderById(tenderId)).unwrap();
       if (bidsData.length > 0) {
         const lowestBid = Math.min(
           ...bidsData.map((bid) => bid?.tenderBaseAmount)

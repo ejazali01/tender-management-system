@@ -24,7 +24,7 @@ const calculateRemainingTime = (endTime) => {
 
 const Table = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state?.auth?.user);
+  const user = useSelector((state) => state?.auth?.user);
   const { error, loading, tender } = useSelector((state) => state?.tender);
 
   const excludedKeys = [
@@ -61,7 +61,7 @@ const Table = () => {
   }, [tender]);
 
   const handleBidClick = (tenderId) => {
-    if (!user) {
+    if (!user && user === null) {
       navigate("/signin");
     }
     setSelectedTenderId(tenderId);

@@ -26,6 +26,19 @@ export const getAllTender = createAsyncThunk(
   }
 );
 
+export const getTenderById = createAsyncThunk(
+  'tender/getTenderById',
+  async (tenderId, { rejectWithValue }) => {
+    try {
+      const response = await API_URL.get(`/tenders/${tenderId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching tender details:', error.response, error.message);
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 export const updateTenderEndTime = createAsyncThunk(
   "tender/updateEndTime",
   async ({ tenderId, newEndTime }, { rejectWithValue }) => {
@@ -74,6 +87,19 @@ const TenderSlice = createSlice({
       .addCase(createTender.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+
+      .addCase(getTenderById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTenderById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tender = action.payload;
+      })
+      .addCase(getTenderById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
 
       .addCase(getAllTender.pending, (state) => {
