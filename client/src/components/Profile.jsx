@@ -166,10 +166,10 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex w-full flex-wrap max-sm:flex-col p-2">
+    <div className="flex w-full flex-wrap max-sm:flex-col justify-center p-2">
       {currentUser ? (
         <>
-          <div className="lg:w-[40%] border-8 border-gray-300 rounded-md m-auto p-3 ">
+          <div className="lg:w-[40%]  border-8 border-gray-300 rounded-md p-3 ">
             <div className="flex flex-col items-center gap-4 p-3">
               <div className="w-full  flex flex-col items-center relative">
                 <img
