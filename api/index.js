@@ -16,14 +16,34 @@ const __dirname = path.resolve();
 
 // Connect Database
 connectDB();
-// middleware
-app.use(cors(
-  {
-      origin: process.env.CORS_ORIGIN || "http://localhost:5173",
-      credentials: true,
-      methods:['GET', 'PUT', 'POST', 'DELETE'],
-  }
-));
+// // middleware
+// app.use(cors(
+//   {
+//       origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+//       credentials: true,
+//       methods:['GET', 'PUT', 'POST', 'DELETE'],
+//   }
+// ));
+
+// Configure CORS to allow requests from your frontend domain
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'https://tender-management-system.onrender.com' // Deployed frontend
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true // If you need to allow cookies or authorization headers
+}));
 
 app.use(morgan("dev"))
 app.use(express.json({ limit: '20kb' }));
