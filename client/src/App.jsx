@@ -27,11 +27,11 @@ const App = () => {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="verify-otp" element={<VerifyOtp />} />
           <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="/my/bids" element={<Bid />} />
 
           {/* User routes */}
-          <Route path="my" element={<PrivateRoute />}>
-            <Route path="bids" element={<Bid />} />
-          </Route>
+          {/* <Route path="my" element={<PrivateRoute />}>
+          </Route> */}
 
           {/* Admin routes */}
           <Route path="my/dashboard" element={<AdminRoute />}>

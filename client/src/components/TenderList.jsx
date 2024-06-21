@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { convertToIST } from "../../utils/Time";
 import Quatation from "./Quatation";
 import Loading from "./Loading";
+import { useNavigate } from "react-router-dom";
 
 const calculateRemainingTime = (endTime) => {
   const now = new Date();
@@ -22,6 +23,8 @@ const calculateRemainingTime = (endTime) => {
 };
 
 const Table = () => {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state?.auth?.user);
   const { error, loading, tender } = useSelector((state) => state?.tender);
 
   const excludedKeys = [
@@ -58,6 +61,9 @@ const Table = () => {
   }, [tender]);
 
   const handleBidClick = (tenderId) => {
+    if (!user) {
+      navigate("/signin");
+    }
     setSelectedTenderId(tenderId);
     setBidFormOpen(true);
   };
