@@ -25,7 +25,8 @@ const calculateRemainingTime = (endTime) => {
 };
 
 const Table = () => {
-  const { error, loading, tender: tenders } = useSelector((state) => state?.tender);
+  const { error, loading, tenders } = useSelector((state) => state?.tender?.tender);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

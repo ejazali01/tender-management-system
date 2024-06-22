@@ -14,23 +14,19 @@ import Loading from "./Loading";
 import { getTenderById } from "../redux/reducers/TenderSlice";
 
 const Quatation = ({ open, handleClose, tenderId, setSelectedTenderId }) => {
-  const { error, loading } = useSelector((state) => state?.bids);
+  const {
+    error,
+    loading,
+    tenderDetails: bidsData,
+  } = useSelector((state) => state?.tender);
 
   const dispatch = useDispatch();
-  const [lowestBid, setLowestBid] = useState(1000);
+  const [lowestBid, setLowestBid] = useState();
   const [suggestedBidCosts, setSuggestedBidCosts] = useState([]);
 
   const fetchBids = async () => {
     try {
-      const bidsData = await dispatch(getTenderById(tenderId)).unwrap();
-      if (bidsData.length > 0) {
-        const lowestBid = Math.min(
-          ...bidsData.map((bid) => bid?.tenderBaseAmount)
-        );
-        setLowestBid(lowestBid);
-      } else {
-        setLowestBid(1000);
-      }
+      await dispatch(getTenderById(tenderId)).unwrap();
     } catch (error) {
       console.error("Failed to fetch bids:", error.message);
     }
@@ -38,6 +34,12 @@ const Quatation = ({ open, handleClose, tenderId, setSelectedTenderId }) => {
 
   useEffect(() => {
     fetchBids();
+    if (bidsData && bidsData.tenderBaseAmount ) {
+      const lowestBidCost = Math.min(bidsData.tenderBaseAmount)
+      setLowestBid(lowestBidCost);
+    } else {
+      setLowestBid(1000);
+    }
     // Generate suggested bid costs based on the highest bid
     const generateSuggestedBidCosts = (lowestBid) => {
       const newSuggestedBidCosts = [];
@@ -132,13 +134,13 @@ const Quatation = ({ open, handleClose, tenderId, setSelectedTenderId }) => {
                 </span>
               </h2>
             </div>
-            <DialogBody  >
+            <DialogBody>
               <Formik
                 initialValues={{
                   tenderId: "",
                   companyName: "",
                   bidCost: "",
-                  message :"",
+                  message: "",
                 }}
                 validationSchema={BidSchema}
                 onSubmit={handleSubmit}

@@ -25,8 +25,12 @@ const calculateRemainingTime = (endTime) => {
 const Table = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state?.auth?.user);
-  const { error, loading, tender } = useSelector((state) => state?.tender);
-
+  const {
+    error,
+    loading,
+    tenders: tender,
+  } = useSelector((state) => state?.tender?.tender);
+  
   const excludedKeys = [
     "__v",
     "_id",

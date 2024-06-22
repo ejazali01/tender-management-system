@@ -7,13 +7,13 @@ import ForgotPassword from "./pages/auth/ForgetPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import Home from "./pages/Home";
 import VerifyOtp from "./pages/auth/VerifyOtp";
-import Bid from "./pages/Bids";
 import Layout from "./pages/layout";
-import PrivateRoute from "./routes/PrivateRoute";
+// import PrivateRoute from "./routes/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
 import DashboardLayout from "./pages/admin/DashboardLayout";
 import AllQuatation from "./components/AllQuatation";
 import ScrollToTop from "./components/ScrollToTop";
+import Bid from "./pages/Bids";
 
 const App = () => {
   return (

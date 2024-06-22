@@ -14,26 +14,30 @@ export const createTender = createAsyncThunk(
 );
 
 export const getAllTender = createAsyncThunk(
-  'tender/getAllTender',
+  "tender/getAllTender",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await API_URL.get('/tender/');
-      return response.data;
+      const response = await API_URL.get("/tender/");
+      return response.data; // Ensure this is the correct data structure
     } catch (error) {
-      console.error('Error fetching tenders:', error.response, error.message);
+      console.error("Error fetching tenders:", error.response, error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
 export const getTenderById = createAsyncThunk(
-  'tender/getTenderById',
+  "tender/getTenderById",
   async (tenderId, { rejectWithValue }) => {
     try {
-      const response = await API_URL.get(`/tenders/${tenderId}`);
+      const response = await API_URL.get(`/tender/${tenderId}`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching tender details:', error.response, error.message);
+      console.error(
+        "Error fetching tender details:",
+        error.response,
+        error.message
+      );
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -43,7 +47,10 @@ export const updateTenderEndTime = createAsyncThunk(
   "tender/updateEndTime",
   async ({ tenderId, newEndTime }, { rejectWithValue }) => {
     try {
-      const updatedResponse = await API_URL.put(`/tender/buffer-time/${tenderId}`, { endTime: newEndTime });
+      const updatedResponse = await API_URL.put(
+        `/tender/buffer-time/${tenderId}`,
+        { endTime: newEndTime }
+      );
       return { ...updatedResponse.data };
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -51,12 +58,13 @@ export const updateTenderEndTime = createAsyncThunk(
   }
 );
 
-
 export const deleteMultipleTenders = createAsyncThunk(
-  'tender/deleteMultipleTenders',
+  "tender/deleteMultipleTenders",
   async (tenderIds, { rejectWithValue }) => {
     try {
-      await API_URL.delete('/tender/delete-multi', { data: { ids: tenderIds } });
+      await API_URL.delete("/tender/delete-multi", {
+        data: { ids: tenderIds },
+      });
       return tenderIds;
     } catch (error) {
       return rejectWithValue(error.response.data || error.message);
@@ -68,6 +76,7 @@ const TenderSlice = createSlice({
   name: "tender",
   initialState: {
     tender: null,
+    tenderDetails: null,
     loading: false,
     error: null,
   },
@@ -95,7 +104,7 @@ const TenderSlice = createSlice({
       })
       .addCase(getTenderById.fulfilled, (state, action) => {
         state.loading = false;
-        state.tender = action.payload;
+        state.tenderDetails = action.payload;
       })
       .addCase(getTenderById.rejected, (state, action) => {
         state.loading = false;
@@ -113,16 +122,20 @@ const TenderSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-    
+
       .addCase(updateTenderEndTime.fulfilled, (state, action) => {
-        const index = state.tender.findIndex((tender) => tender._id === action.payload._id);
+        const index = state.tender.findIndex(
+          (tender) => tender._id === action.payload._id
+        );
         if (index !== -1) {
           state.tender[index] = action.payload;
         }
       })
-      
+
       .addCase(deleteMultipleTenders.fulfilled, (state, action) => {
-        state.tender = state.tender.filter(tender => !action.payload.includes(tender._id));
+        state.tender = state.tender.filter(
+          (tender) => !action.payload.includes(tender._id)
+        );
       });
   },
 });
