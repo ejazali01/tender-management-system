@@ -6,11 +6,13 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/AuthSlice";
 
 export function DrawerDefault() {
+  const dispatch = useDispatch()
   const currentUser = useSelector((state) => state?.auth?.user);
+
   console.log(currentUser);
   const [open, setOpen] = React.useState(false);
 
@@ -78,36 +80,41 @@ export function DrawerDefault() {
             </Button>
           </Link>
 
-
           {currentUser?.user?.user_role === 1 && (
-           
-              <Link
-                to={`/my/${
-                  currentUser?.user?.user_role === 1 ? "dashboard" : "profile"
-                }`}
-                onClick={handleLinkClick}
-              >
-                <Button size="sm" className="w-full" variant="outlined">
-                  Dashboard
-                </Button>
-              </Link>
-           
+            <Link
+              to={`/my/${
+                currentUser?.user?.user_role === 1 ? "dashboard" : "profile"
+              }`}
+              onClick={handleLinkClick}
+            >
+              <Button size="sm" className="w-full" variant="outlined">
+                Dashboard
+              </Button>
+            </Link>
           )}
         </div>
 
         <div className="absolute bottom-0 left-0 p-4 w-full h-40 shadow-xl bg-gray-200">
-          <Button
-            onClick={() => {
-              dispatch(logout());
-              toast.success("logout success");
-              navigate("/signin");
-            }}
-            size="sm"
-            className="w-full"
-            variant="outlined"
-          >
-            Sign Out
-          </Button>
+          {currentUser?.user ? (
+            <Button
+              onClick={() => {
+                dispatch(logout());
+                toast.success("logout success");
+                navigate("/signin");
+              }}
+              size="sm"
+              className="w-full"
+              variant="outlined"
+            >
+              Sign Out
+            </Button>
+          ) : (
+            <Link to="/signin" onClick={handleLinkClick}>
+              <Button size="sm" className="w-full" variant="outlined">
+                Signin
+              </Button>
+            </Link>
+          )}
         </div>
       </Drawer>
     </React.Fragment>
