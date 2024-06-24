@@ -51,7 +51,7 @@ export const updateTenderEndTime = createAsyncThunk(
         `/tender/buffer-time/${tenderId}`,
         { endTime: newEndTime }
       );
-      return { ...updatedResponse.data };
+      return {...updatedResponse.data};
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
@@ -90,7 +90,7 @@ const TenderSlice = createSlice({
       .addCase(createTender.pending, (state) => {
         state.loading = true;
       })
-      .addCase(createTender.fulfilled, (state, action) => {
+      .addCase(createTender.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(createTender.rejected, (state, action) => {
@@ -120,20 +120,21 @@ const TenderSlice = createSlice({
       })
       .addCase(getAllTender.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
       .addCase(updateTenderEndTime.fulfilled, (state, action) => {
-        const index = state.tender.findIndex(
-          (tender) => tender._id === action.payload._id
-        );
-        if (index !== -1) {
-          state.tender[index] = action.payload;
-        }
+        state.tender = state.tender?.tenders.map((tender) =>{
+          tender._id === action.payload._id ? action.payload : tender
+        });
+      })
+
+      .addCase(updateTenderEndTime.rejected, (state, action) => {
+        state.error = action.payload;
       })
 
       .addCase(deleteMultipleTenders.fulfilled, (state, action) => {
-        state.tender = state.tender.filter(
+        state.tender = state.tender.tenders.filter(
           (tender) => !action.payload.includes(tender._id)
         );
       });

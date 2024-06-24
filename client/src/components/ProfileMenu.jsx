@@ -50,7 +50,7 @@ export const ProfileMenu = () => {
                 <Link to="/my/profile">My Profile</Link>
               </Typography>
             </MenuItem>
-
+            
             {currentUser?.user_role === 1 && (
               <MenuItem className="flex items-center gap-2">
                 <svg

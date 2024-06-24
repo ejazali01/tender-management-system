@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateTenderEndTime } from "../redux/reducers/TenderSlice";
-import { Button, Dialog, DialogBody, DialogFooter, Input } from "@material-tailwind/react";
+import { getAllTender, updateTenderEndTime } from "../redux/reducers/TenderSlice";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  Input,
+} from "@material-tailwind/react";
 import toast from "react-hot-toast";
 
 const EditTenderEndTime = ({ tenderId, currentEndTime, open, handleClose }) => {
@@ -21,10 +27,19 @@ const EditTenderEndTime = ({ tenderId, currentEndTime, open, handleClose }) => {
     setErrorMessage("");
 
     try {
-      await dispatch(updateTenderEndTime({ tenderId, newEndTime })).unwrap();
-      toast.success("Tender end time updated successfully!");
-      handleClose();
+      const response = await dispatch(
+        updateTenderEndTime({ tenderId, newEndTime })
+      ).unwrap();
+
+      if (response) {
+        toast.success("Tender end time updated successfully!");
+        handleClose();
+        dispatch(getAllTender()); // Revalidate all tenders data
+      } else {
+        toast.error("Failed to update tender end time.");
+      }
     } catch (error) {
+      console.error("Error:", error);
       toast.error("An error occurred while updating the tender end time.");
     }
   };
@@ -40,7 +55,9 @@ const EditTenderEndTime = ({ tenderId, currentEndTime, open, handleClose }) => {
             onChange={(e) => setNewEndTime(e.target.value)}
             className="border-2 border-gray-700 px-2 rounded-md"
           />
-                    {errorMessage && <span className="text-sm text-red-500">{errorMessage}</span>}
+          {errorMessage && (
+            <span className="text-sm text-red-500">{errorMessage}</span>
+          )}
         </div>
       </DialogBody>
       <DialogFooter>

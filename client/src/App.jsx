@@ -29,10 +29,6 @@ const App = () => {
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="/my/bids" element={<Bid />} />
 
-          {/* User routes */}
-          {/* <Route path="my" element={<PrivateRoute />}>
-          </Route> */}
-
           {/* Admin routes */}
           <Route path="my/dashboard" element={<AdminRoute />}>
             <Route index element={<DashboardLayout />} />
